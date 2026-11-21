@@ -1,0 +1,31 @@
+# Models and large data: never commit (GitHub rejects files > 100 MB)
+models/
+data/
+outputs/
+*.gguf
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.onnx
+
+# Generated images, archives and run logs
+logs/*
+!logs/.gitkeep
+results/**/*.png
+results/**/*.jpg
+results/**/*.zip
+
+# Secrets (keep .env.example, which holds placeholders only)
+.env
+.env.*
+!.env.example
+*.token
+
+# Python / tooling
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
