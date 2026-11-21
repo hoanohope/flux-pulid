@@ -1,0 +1,55 @@
+# Standard configuration of the flux-pulid project.
+# Measurements backing these values: results/README.md (Gate G1, 2x Tesla T4).
+# Replace nhuthoa with the Kaggle account that owns the datasets.
+project: flux-pulid
+seed: 42
+
+model:
+  quant: Q4_0 # Q4_0 | Q8_0
+  dtype: float16 # T4 has poor bf16 support
+  gguf:
+    Q4_0: /kaggle/input/datasets/nhuthoa/flux-vision-models/flux_gguf/flux1-dev-Q4_0.gguf
+    # Q8_0: the file may sit in a sub-folder of the dataset; vision_core searches by file name if the path is wrong
+    Q8_0: /kaggle/input/datasets/nhuthoa/flux1-dev-q8-0-gguf/flux1-dev-Q8_0.gguf
+  text_dir: /kaggle/input/datasets/nhuthoa/flux-vision-models/vae_text_encoder
+  t5_quant: bnb-4bit
+  pulid:
+    enabled: true
+    ckpt: /kaggle/input/datasets/nhuthoa/flux-vision-models/pulid/pulid_flux_v0.9.1.safetensors
+    id_weight: 1.0
+    n_cross_attention: 20 # 10 double + 10 single blocks
+
+devices: # Kaggle T4 x2
+  flux: cuda:0 # transformer, VAE, pulid_ca
+  text: cuda:1 # T5 + CLIP when layout = split
+  id: cuda:1 # PuLID encoder / EVA-CLIP
+  t5_load: null # null = auto: Q8_0 -> cuda:1 (does not fit one GPU), Q4_0 -> cuda:0
+
+paths:
+  work_dir: /kaggle/working
+  pulid_repo: /kaggle/working/PuLID
+  tokenizers_dir: /kaggle/working/flux_tokenizers
+  out_dir: /kaggle/working/outputs
+
+gen:
+  steps: 20
+  guidance: 3.5
+
+g1: # Gate G1 benchmark parameters (as measured)
+  sizes: [[720, 720], [1024, 1024]]
+  layouts: [1GPU, split] # Q8_0 was measured on split only (1GPU would OOM)
+  n_measured: 3
+  warmup_steps: 4
+  vram_limit_gb: 14.0 # T4 has ~15 GB; leave room for the CUDA context
+  max_time_s: 180
+
+# Proposed standard for follow-up experiments (G3/C1), pending confirmation.
+# 720x720 + split is the only setting where both Q4_0 and Q8_0 run reliably (see results/README.md).
+standard:
+  layout: split # 1GPU | split
+  width: 720
+  height: 720
+
+logging:
+  dir: logs
+  results_dir: results

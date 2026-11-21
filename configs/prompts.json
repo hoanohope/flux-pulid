@@ -1,0 +1,32 @@
+{
+  "version": "1.0",
+  "description": "Prompt and seed configuration for identity-preserving 2D image generation",
+  "pilot_seeds": [
+    42
+  ],
+  "main_seeds": [
+    42,
+    123,
+    2026
+  ],
+  "prompts": [
+    {
+      "prompt_id": "P01",
+      "style": "anime",
+      "prompt": "Create a high-quality 2D anime-style portrait based on the provided reference face. Preserve the person's identity, facial structure, hairstyle, and distinctive facial features.",
+      "negative_prompt": "photorealistic, distorted face, deformed eyes, extra facial features, blurry, low quality"
+    },
+    {
+      "prompt_id": "P02",
+      "style": "cartoon",
+      "prompt": "Create a high-quality 2D cartoon portrait based on the provided reference face. Preserve the person's identity and distinctive facial features while applying a clean cartoon illustration style.",
+      "negative_prompt": "photorealistic, distorted face, deformed eyes, extra facial features, blurry, low quality"
+    },
+    {
+      "prompt_id": "P03",
+      "style": "2d_illustration",
+      "prompt": "Create a high-quality 2D digital illustration based on the provided reference face. Preserve the person's identity, facial proportions, hairstyle, and recognizable features.",
+      "negative_prompt": "photorealistic, distorted face, deformed eyes, extra facial features, blurry, low quality"
+    }
+  ]
+}
