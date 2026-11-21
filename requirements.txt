@@ -1,0 +1,7 @@
+# Core dependencies: enough to install, run the demo and the test-suite on any CPU machine.
+# Minimum versions tested with Python 3.12 (pydantic 2.14, PyYAML 6.0, Pillow 13.0, NumPy 2.5, pytest 9.2).
+pydantic>=2.5,<3
+pyyaml>=6.0
+pillow>=10.0
+numpy>=1.26
+pytest>=8.0

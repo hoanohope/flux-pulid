@@ -1,0 +1,19 @@
+# Extra dependencies for the real FLUX.1-dev + PuLID engine (VisionEngine).
+# On Kaggle, torch/CUDA are preinstalled: do NOT reinstall torch.
+-r requirements.txt
+transformers
+diffusers
+accelerate
+gguf>=0.10.0
+bitsandbytes>=0.46.1
+insightface
+onnxruntime
+facexlib
+ftfy
+timm
+einops
+torchsde
+open_clip_torch
+safetensors
+huggingface_hub
+pandas
